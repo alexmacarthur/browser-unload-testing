@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <style> 
+            ul {
+                display: grid;
+                width: 100vw;
+                height: 100vh;
+                place-items: center;    
+                grid-template-columns: 1fr 1fr;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            .response {
+                margin-top: 15px;
+            }
+        </style>    
+    </head>
+    <body>
+        <ul>
+            <li>
+                <button id="button1">
+                    Send Request #1
+                </button>
+
+                <div id="response1" class="response">Nothing clicked yet.</div>
+            </li>
+            <li>
+                <button id="button2">
+                    Send Request #2
+                </button>
+
+                <div id="response2" class="response">Nothing clicked yet.</div>
+            </li>
+        </ul>
+
+        <script>
+            document.getElementById('button1').addEventListener('click', async (e) => {
+                const response = await fetch("/endpoint", {
+                    method: "POST", 
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                const data = await response.json();
+
+                console.log(data);
+            });
+        </script>
+    </body>
+</html>
