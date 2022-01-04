@@ -17,7 +17,7 @@ app.post('/endpoint', async (req, res) => {
 
       res.json({success: true});
       resolve();
-    }, 3000);
+    }, 2000);
   });
 });
 
