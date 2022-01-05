@@ -1,11 +1,11 @@
 <html>
     <head>
-        <style> 
+        <style>
             ul {
                 display: grid;
                 width: 100vw;
                 height: 100vh;
-                place-items: center;    
+                place-items: center;
                 grid-template-columns: 1fr 1fr;
             }
 
@@ -17,7 +17,7 @@
             .response {
                 margin-top: 15px;
             }
-        </style>    
+        </style>
     </head>
     <body>
         <ul>
@@ -43,49 +43,52 @@
         </ul>
 
         <script>
+          window.addEventListener('beforeunload', () => {
+            console.log('about to unload!!!');
+          });
+
+          window.addEventListener('unload', () => {
+            console.log('unloading!!!');
+            debugger;
+          });
+
             document.getElementById('close').addEventListener('click', (e) => {
                 const response = fetch("/endpoint", {
-                    method: "POST", 
+                    method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                      "Content-Type": "application/json"
                     }
                 });
 
-                window.location = "https://macarthur.me";
+                window.location = "/other-page";
             });
 
             document.getElementById('button1').addEventListener('click', async (e) => {
-                const xhr = new XMLHttpRequest();
+                // const xhr = new XMLHttpRequest();
+                // xhr.open("POST", "/endpoint");
+                // xhr.setRequestHeader("Content-Type", "application/json");
+                // xhr.onerror = function() { console.log("Not Connected"); }
+                // xhr.send(JSON.stringify({ name: "Alex" }));
 
+                // xhr.abort();
 
-                xhr.open("POST", "/endpoint");
-                xhr.setRequestHeader("Content-Type", "application/json");
+                // const response = fetch("/endpoint", {
+                //   method: "POST",
+                //   headers: {
+                //     "Content-Type": "application/json"
+                //   },
+                //   keepalive: true
+                // });
 
-                //xhr.onload = function() { console.log("Connected!"); }
-                xhr.onerror = function() { console.log("Not Connected"); }
-                
-                console.log(xhr.readyState);
+                // console.log(response);
 
-                xhr.send(JSON.stringify({ name: "Alex" }));
-
-                console.log(xhr.readyState);
-
-                    xhr.abort();
-                setTimeout(() => {
-                    //debugger;
-                }, 0)
+                // debugger;
 
                 // 0 = uninitialized
                 // 1 = loading
                 // 2 = loaded
                 // 3 = interactive
                 // 4 = complete
-
-                xhr.onload = function () {
-                    if (this.status >= 200 && this.status < 400) {
-                        console.log(JSON.parse(this.responseText));
-                    }
-                };
             });
         </script>
     </body>

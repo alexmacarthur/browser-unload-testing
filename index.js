@@ -3,13 +3,25 @@ const app = express();
 const port = 3000;
 const path = require("path");
 
-app.get('/', (req, res) => {	
+// app.use(function (req, res, next) {
+//   console.log('Time:', Date.now())
+//   setTimeout(() => {
+//     next();
+//   }, 5000);
+// })
+
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'));
-  // res.json({success: true});
+});
+
+app.get('/other-page', (req, res) => {
+  res.sendFile(path.join(__dirname, '/index2.html'));
 });
 
 app.post('/endpoint', async (req, res) => {
   console.log('Request received!');
+
+  res.set("Connection", "close");
 
   return await new Promise(resolve => {
     setTimeout(() => {
@@ -17,10 +29,13 @@ app.post('/endpoint', async (req, res) => {
 
       res.json({success: true});
       resolve();
-    }, 2000);
+    }, 3000);
   });
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Running on port ${port}.`);
 });
+
+server.keepAliveTimeout = 0;
+server.headersTimeout = 0;
