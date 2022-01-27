@@ -1,95 +1,29 @@
 <html>
-    <head>
-        <style>
-            ul {
-                display: grid;
-                width: 100vw;
-                height: 100vh;
-                place-items: center;
-                grid-template-columns: 1fr 1fr;
-            }
 
-            ul {
-                list-style: none;
-                padding: 0;
-            }
+<head>
+</head>
 
-            .response {
-                margin-top: 15px;
-            }
-        </style>
-    </head>
-    <body>
-        <ul>
-            <li>
-                <button id="button1">
-                    Send Request #1
-                </button>
+<body>
+  <div>
+    <h1>Main Page</h1>
+    <a id="link" href="other">
+      Go to Other Page
+    </a>
+  </div>
 
-                <div id="response1" class="response">Nothing clicked yet.</div>
-            </li>
-            <li>
-                <button id="button2">
-                    Send Request #2
-                </button>
+  <script>
+    document.getElementById('link').addEventListener('click', (e) => {
+      fetch("/log", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          some: "data"
+        })
+      });
+    });
+  </script>
+</body>
 
-                <div id="response2" class="response">Nothing clicked yet.</div>
-            </li>
-            <li>
-                <button id="close">
-                    Close Window
-                </button>
-            </li>
-        </ul>
-
-        <script>
-          window.addEventListener('beforeunload', () => {
-            console.log('about to unload!!!');
-          });
-
-          window.addEventListener('unload', () => {
-            console.log('unloading!!!');
-            debugger;
-          });
-
-            document.getElementById('close').addEventListener('click', (e) => {
-                const response = fetch("/endpoint", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json"
-                    }
-                });
-
-                window.location = "/other-page";
-            });
-
-            document.getElementById('button1').addEventListener('click', async (e) => {
-                // const xhr = new XMLHttpRequest();
-                // xhr.open("POST", "/endpoint");
-                // xhr.setRequestHeader("Content-Type", "application/json");
-                // xhr.onerror = function() { console.log("Not Connected"); }
-                // xhr.send(JSON.stringify({ name: "Alex" }));
-
-                // xhr.abort();
-
-                // const response = fetch("/endpoint", {
-                //   method: "POST",
-                //   headers: {
-                //     "Content-Type": "application/json"
-                //   },
-                //   keepalive: true
-                // });
-
-                // console.log(response);
-
-                // debugger;
-
-                // 0 = uninitialized
-                // 1 = loading
-                // 2 = loaded
-                // 3 = interactive
-                // 4 = complete
-            });
-        </script>
-    </body>
 </html>

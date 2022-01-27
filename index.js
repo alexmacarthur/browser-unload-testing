@@ -14,23 +14,13 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-app.get('/other-page', (req, res) => {
-  res.sendFile(path.join(__dirname, '/index2.html'));
+app.get('/other', (req, res) => {
+  res.sendFile(path.join(__dirname, '/other.html'));
 });
 
-app.post('/endpoint', async (req, res) => {
-  console.log('Request received!');
-
-  res.set("Connection", "close");
-
-  return await new Promise(resolve => {
-    setTimeout(() => {
-      console.log('Request processed!');
-
-      res.json({success: true});
-      resolve();
-    }, 3000);
-  });
+app.post('/log', async (req, res) => {
+  console.log('log!');
+  res.json({ success: true });
 });
 
 const server = app.listen(port, () => {
