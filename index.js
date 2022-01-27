@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const path = require("path");
+const bodyParser = require('body-parser');
 
 // app.use(function (req, res, next) {
 //   console.log('Time:', Date.now())
@@ -9,6 +10,9 @@ const path = require("path");
 //     next();
 //   }, 5000);
 // })
+
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json())
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'));
@@ -19,6 +23,9 @@ app.get('/other', (req, res) => {
 });
 
 app.post('/log', async (req, res) => {
+
+  console.log(req);
+
   console.log('log!');
   res.json({ success: true });
 });

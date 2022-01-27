@@ -19,9 +19,13 @@
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          some: "data"
-        })
+          type: "fetch"
+        }),
+        // keepalive: true
       });
+
+      // const blob = new Blob([JSON.stringify({ type: "beacon" })], { type: 'application/json; charset=UTF-8' });
+      // navigator.sendBeacon('/log', blob);
     });
   </script>
 </body>
