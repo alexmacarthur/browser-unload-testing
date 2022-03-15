@@ -1,17 +1,7 @@
 const express = require("express");
 const app = express();
-const port = 3000;
 const path = require("path");
-const bodyParser = require('body-parser');
 
-// app.use(function (req, res, next) {
-//   console.log('Time:', Date.now())
-//   setTimeout(() => {
-//     next();
-//   }, 5000);
-// })
-
-// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json())
 
 app.get('/', (req, res) => {
@@ -22,16 +12,14 @@ app.get('/other', (req, res) => {
   res.sendFile(path.join(__dirname, '/other.html'));
 });
 
-app.post('/log', async (req, res) => {
-
-  console.log(req);
-
-  console.log('log!');
-  res.json({ success: true });
+app.post('/log', (req, res) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => res.json({ success: true }), 1000)
+  }); 
 });
 
-const server = app.listen(port, () => {
-  console.log(`Running on port ${port}.`);
+const server = app.listen(3000, () => {
+  console.log(`Running on port 3000.`);
 });
 
 server.keepAliveTimeout = 0;

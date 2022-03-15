@@ -6,26 +6,27 @@
 <body>
   <div>
     <h1>Main Page</h1>
-    <a id="link" href="other">
+
+    <a id="link" href="/other">
       Go to Other Page
     </a>
   </div>
 
   <script>
     document.getElementById('link').addEventListener('click', (e) => {
-      fetch("/log", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          type: "fetch"
-        }),
-        // keepalive: true
-      });
 
-      // const blob = new Blob([JSON.stringify({ type: "beacon" })], { type: 'application/json; charset=UTF-8' });
-      // navigator.sendBeacon('/log', blob);
+      // fetch("/log", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: JSON.stringify({
+      //     some: "data"
+      //   }),
+      // });
+
+      const blob = new Blob([JSON.stringify({ type: "beacon" })], { type: 'application/json; charset=UTF-8' });
+      navigator.sendBeacon('/log', blob);
     });
   </script>
 </body>
